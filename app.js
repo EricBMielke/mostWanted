@@ -8,10 +8,25 @@ function app(people){
   switch(searchType){
     case 'yes':
     // TODO: search by name
+    
     var foundPerson = searchByName(people);
     break;
     case 'no':
     // TODO: search by traits
+    //search by age for loop//
+    for (i = 0; i < data.length; i++) {
+          var dob = data[i].dob
+          console.log("date of birth: " + " " + dob);
+          let currentYear = new Date().getFullYear();
+          var age;
+          age = Math.abs(new Date(dob).getFullYear() - currentYear);
+          console.log(age);
+          data[i].currentAge = age;
+          // console.log(data[2].currentAge);
+    }
+    //search by age//
+    let unfoundPerson = searchByAge(data);
+    //
     break;
     default:
     app(people); // restart app
@@ -51,12 +66,14 @@ function mainMenu(person, people){
   }
 }
 
-function searchByName(people){
+function searchByName(people){ //make understand upper and lowercase letters (idiot proofing)
   var firstName = promptFor("What is the person's first name?", chars);
   var lastName = promptFor("What is the person's last name?", chars);
 
   var foundPerson = people.filter(function(person){
     if(person.firstName === firstName && person.lastName === lastName){
+      window.alert ("We found" + " " + person.firstName + " " + person.lastName);
+      console.log(foundPerson);
       return true;
     }
     else{
@@ -99,4 +116,24 @@ function yesNo(input){
 // helper function to pass in as default promptFor validation
 function chars(input){
   return true; // default validation only
+}
+//
+
+function searchByAge(people){
+  var personAge = promptFor("What is the person's age?", chars);
+  personAge = parseInt(personAge);
+  for (i = 0; i < data.length; i++){
+    var foundPerson = people.filter(function(person){
+    if(person.currentAge === personAge){
+      window.alert ("We found" + " " + person.firstName);
+      console.log(foundPerson);
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  // TODO: find the person using the name they entered
+  return foundPerson;
+}
 }
