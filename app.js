@@ -137,7 +137,8 @@ function searchByAge(people){
   for (i = 0; i < data.length; i++){
     var foundPerson = people.filter(function(person){
     if(person.currentAge === personAge){
-      window.alert ("We found" + " " + person.firstName + " " + person.lastName);
+      // window.alert ("We found" + " " + person.firstName + " " + person.lastName);
+      document.getElementById('theResult').innerHTML = person.firstName + " " + person.lastName;
       console.log(foundPerson);
       return true;
     }
@@ -183,7 +184,8 @@ function searchByGender(people){
     }
 
   })
-  alert ("We found" + "\n" + newGenderArray.join('\n'));
+  // alert ("We found" + "\n" + newGenderArray.join('\n'));
+  document.getElementById('theResult').innerHTML = newGenderArray;
   // TODO: find the person using the name they entered
   return foundGenderPerson;
   }
@@ -205,7 +207,8 @@ function searchByHeight(people){
     }
 
   })
-  alert ("We found" + "\n" + newHeightArray.join('\n'));
+  // alert ("We found" + "\n" + newHeightArray.join('\n'));
+  document.getElementById('theResult').innerHTML = newHeightArray;
   // TODO: find the person using the name they entered
   return foundHeightPerson;
   }
@@ -227,7 +230,8 @@ function searchByWeight(people){
     }
 
   })
-  alert ("We found" + "\n" + newWeightArray.join('\n'));
+  // alert ("We found" + "\n" + newWeightArray.join('\n'));
+  document.getElementById('theResult').innerHTML = newWeightArray;
   // TODO: find the person using the name they entered
   return foundWeightPerson;
   }
@@ -248,7 +252,8 @@ function searchByEyeColor(people){
     }
 
   })
-  alert ("We found" + "\n" + newEyeArray.join('\n'));
+  // alert ("We found" + "\n" + newEyeArray.join('\n'));
+  document.getElementById('theResult').innerHTML = newEyeArray;
   // TODO: find the person using the name they entered
   return foundEyePerson;
   }
