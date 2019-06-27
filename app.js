@@ -11,33 +11,27 @@ var newWeightArray = [];
 let foundEyePerson = [];
 var newEyeArray = [];
 //variables
-    for (i = 0; i < data.length; i++) {
-          var dob = data[i].dob
-          console.log("date of birth: " + " " + dob);
-          let currentYear = new Date().getFullYear();
-          var age;
-          age = Math.abs(new Date(dob).getFullYear() - currentYear);
-          console.log(age);
-          data[i].currentAge = age;
-          // console.log(data[2].currentAge);
-    }
+
+for (i = 0; i < data.length; i++) {
+  var dob = data[i].dob
+  console.log("date of birth: " + " " + dob);
+  let currentYear = new Date().getFullYear();
+  var age;
+  age = Math.abs(new Date(dob).getFullYear() - currentYear);
+  console.log(age);
+  data[i].currentAge = age;
+}
 // app is the function called to start the entire application
 function app(people){
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   switch(searchType){
     case 'yes':
     // TODO: search by name
-    
     var foundPerson = searchByName(people);
     break;
     case 'no':
     // TODO: search by traits
-    //search by age for loop//
-
-    //search by age//
-    // let unfoundPerson = searchByAge(data);
     let unfoundPerson = searchByTrait();
-    //
     break;
     default:
     app(people); // restart app
@@ -81,7 +75,6 @@ function mainMenu(person, people){
 function searchByName(people){ //make understand upper and lowercase letters (idiot proofing)
   var firstName = promptFor("What is the person's first name?", chars);
   var lastName = promptFor("What is the person's last name?", chars);
-
   var foundPerson = people.filter(function(person){
     if(person.firstName === firstName && person.lastName === lastName){
       window.alert ("We found" + " " + person.firstName + " " + person.lastName);
@@ -131,6 +124,24 @@ function chars(input){
 }
 //
 
+
+function searchByTrait(trait) {
+  if (document.getElementById('age').checked == true) {
+    searchByAge(data);
+  }
+  else if (document.getElementById('gender').checked == true) {
+    searchByGender(data);
+  }
+  else if (document.getElementById('height').checked == true) {
+    searchByHeight(data);
+  }
+  else if (document.getElementById('weight').checked == true) {
+    searchByWeight(data);
+  }
+  else if (document.getElementById('eye').checked == true) {
+    searchByEyeColor(data);
+  }
+}
 function searchByAge(people){
   var personAge = promptFor("What is the person's age?", chars);
   personAge = parseInt(personAge);
@@ -150,24 +161,6 @@ function searchByAge(people){
   return foundPerson;
   }
 }
-function searchByTrait(trait) {
-  if (document.getElementById('age').checked == true) {
-    searchByAge(data);
-  }
-  else if (document.getElementById('gender').checked == true) {
-    searchByGender(data);
-  }
-  else if (document.getElementById('height').checked == true) {
-    searchByHeight(data);
-  }
-  else if (document.getElementById('weight').checked == true) {
-    searchByWeight(data);
-  }
-  else if (document.getElementById('eye').checked == true) {
-    searchByEyeColor(data);
-  }
-}
-
 
 function searchByGender(people){
   var personGender = promptFor("What is the person's gender?", chars);
