@@ -25,7 +25,8 @@ function app(people){
           // console.log(data[2].currentAge);
     }
     //search by age//
-    let unfoundPerson = searchByAge(data);
+    // let unfoundPerson = searchByAge(data);
+    let unfoundPerson = searchByTrait();
     //
     break;
     default:
@@ -37,7 +38,8 @@ function app(people){
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people){
 
-  /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
+  /* Here we pass in the entire person object that we found in our search, as well as the entire original 
+  dataset of people. We need people in order to find descendants and other information that the user may want. */
 
   if(!person){
     alert("Could not find that individual.");
@@ -135,5 +137,54 @@ function searchByAge(people){
   })
   // TODO: find the person using the name they entered
   return foundPerson;
+  }
 }
+function searchByTrait(trait) {
+  if (document.getElementById('age').checked == true) {
+    searchByAge(data);
+  }
+  else if (document.getElementById('gender').checked == true) {
+    searchByGender(data);
+  }
+  else if (document.getElementById('height').checked == true) {
+    searchByHeight(data);
+  }
+  else if (document.getElementById('weight').checked == true) {
+    searchByWeight(data);
+  }
+  else if (document.getElementById('eyeColor').checked == true) {
+    searchByEyeColor(data);
+  }
+}
+
+let foundPerson = [];
+var newArray = [];
+function searchByGender(people){
+  var personGender = promptFor("What is the person's gender?", chars);
+  // personAge = parseInt(personAge);
+  for (i = 0; i < data.length; i++){
+
+    foundPerson = people.map(function(person){
+    if(person.gender === personGender){
+      foundPerson.push(person.firstName + " " + person.lastName);
+      console.log(foundPerson);
+      newArray = foundPerson;
+
+      // window.alert ("We found" + " " + foundPerson);
+      // console.log(foundPerson);
+      // return true;
+      return newArray;
+    }
+    else{
+      console.log("else");
+      // return false;
+    }
+
+  })
+  alert ("We found" + " " + newArray.join('\n'));
+  // TODO: find the person using the name they entered
+  console.log(foundPerson);
+
+  return foundPerson;
+  }
 }
