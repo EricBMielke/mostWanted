@@ -1,7 +1,26 @@
 /*
 Build all of your functions for displaying and gathering information below (GUI).
 */
-
+//variables 
+let foundGenderPerson = [];
+var newGenderArray = [];
+let foundHeightPerson = [];
+var newHeightArray = [];
+let foundWeightPerson = [];
+var newWeightArray = [];
+let foundEyePerson = [];
+var newEyeArray = [];
+//variables
+    for (i = 0; i < data.length; i++) {
+          var dob = data[i].dob
+          console.log("date of birth: " + " " + dob);
+          let currentYear = new Date().getFullYear();
+          var age;
+          age = Math.abs(new Date(dob).getFullYear() - currentYear);
+          console.log(age);
+          data[i].currentAge = age;
+          // console.log(data[2].currentAge);
+    }
 // app is the function called to start the entire application
 function app(people){
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
@@ -14,16 +33,7 @@ function app(people){
     case 'no':
     // TODO: search by traits
     //search by age for loop//
-    for (i = 0; i < data.length; i++) {
-          var dob = data[i].dob
-          console.log("date of birth: " + " " + dob);
-          let currentYear = new Date().getFullYear();
-          var age;
-          age = Math.abs(new Date(dob).getFullYear() - currentYear);
-          console.log(age);
-          data[i].currentAge = age;
-          // console.log(data[2].currentAge);
-    }
+
     //search by age//
     // let unfoundPerson = searchByAge(data);
     let unfoundPerson = searchByTrait();
@@ -127,7 +137,7 @@ function searchByAge(people){
   for (i = 0; i < data.length; i++){
     var foundPerson = people.filter(function(person){
     if(person.currentAge === personAge){
-      window.alert ("We found" + " " + person.firstName);
+      window.alert ("We found" + " " + person.firstName + " " + person.lastName);
       console.log(foundPerson);
       return true;
     }
@@ -152,39 +162,94 @@ function searchByTrait(trait) {
   else if (document.getElementById('weight').checked == true) {
     searchByWeight(data);
   }
-  else if (document.getElementById('eyeColor').checked == true) {
+  else if (document.getElementById('eye').checked == true) {
     searchByEyeColor(data);
   }
 }
 
-let foundPerson = [];
-var newArray = [];
+
 function searchByGender(people){
   var personGender = promptFor("What is the person's gender?", chars);
-  // personAge = parseInt(personAge);
   for (i = 0; i < data.length; i++){
-
-    foundPerson = people.map(function(person){
+    foundGenderPerson = people.map(function(person){
     if(person.gender === personGender){
-      foundPerson.push(person.firstName + " " + person.lastName);
-      console.log(foundPerson);
-      newArray = foundPerson;
-
-      // window.alert ("We found" + " " + foundPerson);
-      // console.log(foundPerson);
-      // return true;
-      return newArray;
+      foundGenderPerson.push(person.firstName + " " + person.lastName);
+      console.log(foundGenderPerson);
+      newGenderArray = foundGenderPerson;
+      return newGenderArray;
     }
     else{
       console.log("else");
-      // return false;
     }
 
   })
-  alert ("We found" + " " + newArray.join('\n'));
+  alert ("We found" + "\n" + newGenderArray.join('\n'));
   // TODO: find the person using the name they entered
-  console.log(foundPerson);
+  return foundGenderPerson;
+  }
+}
 
-  return foundPerson;
+function searchByHeight(people){
+  var personHeight = promptFor("What is the person's height?", chars);
+  personHeight = parseInt(personHeight);
+  for (i = 0; i < data.length; i++){
+    foundHeightPerson = people.filter(function(person){
+    if(person.height === personHeight){
+      foundHeightPerson.push(person.firstName + " " + person.lastName);
+      console.log(foundHeightPerson);
+      newHeightArray = foundHeightPerson;
+      return newHeightArray;
+    }
+    else{
+      console.log("else");
+    }
+
+  })
+  alert ("We found" + "\n" + newHeightArray.join('\n'));
+  // TODO: find the person using the name they entered
+  return foundHeightPerson;
+  }
+}
+
+function searchByWeight(people){
+  var personWeight = promptFor("What is the person's Weight?", chars);
+  personWeight = parseInt(personWeight);
+  for (i = 0; i < data.length; i++){
+    foundWeightPerson = people.filter(function(person){
+    if(person.weight === personWeight){
+      foundWeightPerson.push(person.firstName + " " + person.lastName);
+      console.log(foundWeightPerson);
+      newWeightArray = foundWeightPerson;
+      return newWeightArray;
+    }
+    else{
+      console.log("else");
+    }
+
+  })
+  alert ("We found" + "\n" + newWeightArray.join('\n'));
+  // TODO: find the person using the name they entered
+  return foundWeightPerson;
+  }
+}
+
+function searchByEyeColor(people){
+  var personEye = promptFor("What is the person's eye color?", chars);
+  for (i = 0; i < data.length; i++){
+    foundEyePerson = people.map(function(person){
+    if(person.eyeColor === personEye){
+      foundEyePerson.push(person.firstName + " " + person.lastName);
+      console.log(foundEyePerson);
+      newEyeArray = foundEyePerson;
+      return newEyeArray;
+    }
+    else{
+      console.log("else");
+    }
+
+  })
+  alert ("We found" + "\n" + newEyeArray.join('\n'));
+  // TODO: find the person using the name they entered
+  return foundEyePerson;
   }
 }
