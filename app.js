@@ -14,11 +14,11 @@ var newEyeArray = [];
 
 for (i = 0; i < data.length; i++) {
   var dob = data[i].dob
-  console.log("date of birth: " + " " + dob);
+  // console.log("date of birth: " + " " + dob);
   let currentYear = new Date().getFullYear();
   var age;
   age = Math.abs(new Date(dob).getFullYear() - currentYear);
-  console.log(age);
+  // console.log(age);
   data[i].currentAge = age;
 }
 // app is the function called to start the entire application
@@ -31,7 +31,7 @@ function app(people){
     break;
     case 'no':
     // TODO: search by traits
-    let unfoundPerson = searchByTrait();
+    let unfoundPerson = searchByTrait(); //
     break;
     default:
     app(people); // restart app
@@ -42,8 +42,9 @@ function app(people){
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people){
 
-  /* Here we pass in the entire person object that we found in our search, as well as the entire original 
-  dataset of people. We need people in order to find descendants and other information that the user may want. */
+  /* Here we pass in the entire person object that we found in our search, as well as the entire 
+  original dataset of people. We need people in order to find descendants 
+  and other information that the user may want. */
 
   if(!person){
     alert("Could not find that individual.");
@@ -55,6 +56,7 @@ function mainMenu(person, people){
   switch(displayOption){
     case "info":
     // TODO: get person's info
+      displayPerson(person);
     break;
     case "family":
     // TODO: get person's family
@@ -78,13 +80,14 @@ function searchByName(people){ //make understand upper and lowercase letters (id
   var foundPerson = people.filter(function(person){
     if(person.firstName === firstName && person.lastName === lastName){
       window.alert ("We found" + " " + person.firstName + " " + person.lastName);
-      console.log(foundPerson);
+
       return true;
     }
     else{
       return false;
     }
   })
+  displayPerson(foundPerson[0]);
   // TODO: find the person using the name they entered
   return foundPerson;
 }
@@ -101,8 +104,19 @@ function displayPerson(person){
   // height, weight, age, name, occupation, eye color.
   var personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
+  personInfo += "id: " + person.id + "\n";
+  personInfo += "Age: " + person.currentAge + "\n";
+  personInfo += "DOB: " + person.dob + "\n"; 
+  personInfo += "Gender: " + person.gender + "\n";
+  personInfo += "Height: " + person.height + "\n";
+  personInfo += "Weight: " + person.weight + "\n";
+  personInfo += "Eye color: " + person.eyeColor + "\n";
+  personInfo += "Occupation: " + person.occupation + "\n";
   // TODO: finish getting the rest of the information to display
+  console.log(personInfo);
   alert(personInfo);
+  mainMenu(person, data);
+
 }
 
 // function that prompts and validates user input
@@ -149,7 +163,7 @@ function searchByAge(people){
     var foundPerson = people.filter(function(person){
     if(person.currentAge === personAge){
       // window.alert ("We found" + " " + person.firstName + " " + person.lastName);
-      document.getElementById('theResult').innerHTML = person.firstName + " " + person.lastName;
+      document.getElementById('theResult').innerHTML = "We found" + " " + person.firstName + " " + person.lastName;
       console.log(foundPerson);
       return true;
     }
@@ -179,8 +193,10 @@ function searchByGender(people){
   })
   // alert ("We found" + "\n" + newGenderArray.join('\n'));
   document.getElementById('theResult').innerHTML = newGenderArray;
+  mainMenu(newGenderArray, data);
   // TODO: find the person using the name they entered
   return foundGenderPerson;
+  
   }
 }
 
