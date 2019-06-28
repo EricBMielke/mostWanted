@@ -60,13 +60,13 @@ function mainMenu(person, people){
     break;
     case "family":
     // TODO: get person's family
-      displayFamily(person);
+      findSpouse(person, people);
     break;
     case "descendants":
     // TODO: get person's descendants
     break;
     case "restart":
-    app(people); // restart
+      app(people); // restart
     break;
     case "quit":
     return; // stop execution
@@ -137,29 +137,9 @@ function yesNo(input){
 function chars(input){
   return true; // default validation only
 }
-//
-
-//searchByTrait function being rewritten below to be prompt centered
-// function searchByTrait(trait) {
-//   if (document.getElementById('age').checked == true) {
-//     searchByAge(data);
-//   }
-//   else if (document.getElementById('gender').checked == true) {
-//     searchByGender(data);
-//   }
-//   else if (document.getElementById('height').checked == true) {
-//     searchByHeight(data);
-//   }
-//   else if (document.getElementById('weight').checked == true) {
-//     searchByWeight(data);
-//   }
-//   else if (document.getElementById('eye').checked == true) {
-//     searchByEyeColor(data);
-//   }
-// }
 
 function searchByTrait(people){
-  var selectedTrait = promptFor("Which trait would you like to search by? (age, gender, height, weight, eye color", chars);
+  var selectedTrait = promptFor("Which trait would you like to search by? (age, gender, height, weight, eye color)", chars);
   if (selectedTrait == "age"){
     searchByAge(data);
   }
@@ -200,26 +180,24 @@ function searchByAge(people){
 
 function searchByGender(people){
   var personGender = promptFor("What is the person's gender?", chars);
-  for (i = 0; i < data.length; i++){
+  // for (i = 0; i < data.length; i++){
     foundGenderPerson = people.map(function(person){
     if(person.gender === personGender){
-      foundGenderPerson.push(person.firstName + " " + person.lastName);
+      //foundGenderPerson.push(person.firstName + " " + person.lastName);
+      return person;
       console.log(foundGenderPerson);
-      newGenderArray = foundGenderPerson;
-      return newGenderArray;
     }
     else{
-      console.log("else");
+      console.log(" ");
     }
-
   })
-  // alert ("We found" + "\n" + newGenderArray.join('\n'));
-  document.getElementById('theResult').innerHTML = newGenderArray;
-  mainMenu(newGenderArray, data);
+  alert(foundGenderPerson[0].firstName);/*So this syntax kind of works, but it is not 
+  universally functional. Right now, it just lists Billy since he is at the 0th index.
+  However, using i or leaving the brackets empty does not work because the positions that had a
+  female populating them are undefined in the new array. No clue how to fix. */
+  app(data);
   // TODO: find the person using the name they entered
-  return foundGenderPerson;
-  
-  }
+   return foundGenderPerson;
 }
 
 function searchByHeight(people){
@@ -290,21 +268,17 @@ function searchByEyeColor(people){
   }
 }
 
-function findFamily (people) {
-  let lastName = document.getElementById('lastNameSpouseSearch').value;
-  var foundPerson = people.filter(function(person){
-  for (i = 0; i < data.length; i++)
-    if (person[i].lastName = lastName) {
-      spouseNum = person[i].currentSpouse;
-      for (i = 0; i < person.length; i++){
-        if  (spouseNum = person[i].id){
-          document.write(lastName + "is married to" + data[i].firstName + " "+ data[i].lastName);
-        }
-      }
+/*function fully works through start button/main menu navigation 
+courtesy of Nevin */
+function findSpouse(person, people){
+  var foundPerson = people.filter(function(el){
+    if(el.id == person.currentSpouse){
+      alert("Spouse: " + el.firstName + " " + el.lastName);
+      return true;
     }
     else{
-      document.write ('Not married.');
+      return false;
     }
-    return foundPerson;
-  })
+})
+  mainMenu(person, data);
 }
