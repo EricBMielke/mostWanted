@@ -289,3 +289,22 @@ function searchByEyeColor(people){
   return foundEyePerson;
   }
 }
+
+function findFamily (people) {
+  let lastName = document.getElementById('lastNameSpouseSearch').value;
+  var foundPerson = people.filter(function(person){
+  for (i = 0; i < data.length; i++)
+    if (person[i].lastName = lastName) {
+      spouseNum = person[i].currentSpouse;
+      for (i = 0; i < person.length; i++){
+        if  (spouseNum = person[i].id){
+          document.write(lastName + "is married to" + data[i].firstName + " "+ data[i].lastName);
+        }
+      }
+    }
+    else{
+      document.write ('Not married.');
+    }
+    return foundPerson;
+  })
+}
