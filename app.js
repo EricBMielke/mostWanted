@@ -31,7 +31,7 @@ function app(people){
     break;
     case 'no':
     // TODO: search by traits
-    let unfoundPerson = searchByTrait(); //
+    var unfoundPerson = searchByTrait(people); //
     break;
     default:
     app(people); // restart app
@@ -60,6 +60,7 @@ function mainMenu(person, people){
     break;
     case "family":
     // TODO: get person's family
+      displayFamily(person);
     break;
     case "descendants":
     // TODO: get person's descendants
@@ -138,24 +139,45 @@ function chars(input){
 }
 //
 
+//searchByTrait function being rewritten below to be prompt centered
+// function searchByTrait(trait) {
+//   if (document.getElementById('age').checked == true) {
+//     searchByAge(data);
+//   }
+//   else if (document.getElementById('gender').checked == true) {
+//     searchByGender(data);
+//   }
+//   else if (document.getElementById('height').checked == true) {
+//     searchByHeight(data);
+//   }
+//   else if (document.getElementById('weight').checked == true) {
+//     searchByWeight(data);
+//   }
+//   else if (document.getElementById('eye').checked == true) {
+//     searchByEyeColor(data);
+//   }
+// }
 
-function searchByTrait(trait) {
-  if (document.getElementById('age').checked == true) {
+function searchByTrait(people){
+  var selectedTrait = promptFor("Which trait would you like to search by? (age, gender, height, weight, eye color", chars);
+  if (selectedTrait == "age"){
     searchByAge(data);
   }
-  else if (document.getElementById('gender').checked == true) {
+  else if (selectedTrait == "gender"){
     searchByGender(data);
   }
-  else if (document.getElementById('height').checked == true) {
+  else if (selectedTrait == "height"){
     searchByHeight(data);
   }
-  else if (document.getElementById('weight').checked == true) {
+  else if (selectedTrait == "weight"){
     searchByWeight(data);
   }
-  else if (document.getElementById('eye').checked == true) {
+  else if (selectedTrait == "eye color"){
     searchByEyeColor(data);
   }
 }
+
+
 function searchByAge(people){
   var personAge = promptFor("What is the person's age?", chars);
   personAge = parseInt(personAge);
