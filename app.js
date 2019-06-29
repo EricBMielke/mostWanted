@@ -12,6 +12,14 @@ let foundEyePerson = [];
 var newEyeArray = [];
 //variables
 
+var metricPeople = data.map(convertToMetric)
+function convertToMetric(data) {
+  data.weight = weight/2.54
+  data.height =  height/39.37
+}
+
+console.log(metricPeople);
+
 for (i = 0; i < data.length; i++) {
   var dob = data[i].dob
   // console.log("date of birth: " + " " + dob);
