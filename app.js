@@ -59,17 +59,22 @@ function mainMenu(person, people){
     return app(people); // restart
   }
 
-  var displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+  var displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'spouse', 'siblings', 'parents', or 'descendants'? Type the option you want or 'restart' or 'quit'");
 
   switch(displayOption){
     case "info":
     // TODO: get person's info
       displayPerson(person);
     break;
-    case "family":
+    case "spouse":
     // TODO: get person's family
       findSpouse(person, people);
     break;
+    case "parents":
+      findParents(person, people);
+    break;
+    case "siblings": 
+      findSiblings(person, people);
     case "descendants":
     // TODO: get person's descendants
     break;
@@ -291,20 +296,28 @@ function findSpouse(person, people){
   mainMenu(person, data);
 }
 
-/*UNTESTED CODE BELOW*/
-/*Need to talk to Erica to see the properties of el. to understand if this is the proper implementation or do we need to approach the findSiblings function in another manner */
-
-function findSiblings(person, people){
-  for (i = 0; i < data.length; i++){
+function findParents(person, people){
   var foundPerson = people.filter(function(el){
-    if(el.id == person[i].parent[0] || el.id==person[i].parent [1]){
-      alert("Sibling: " + el.firstName + " " + el.lastName);
+    if(el.id == person.parents[0] || el.id==person.parents[1]){
+      alert("Parents: " + el.firstName + " " + el.lastName);
       return true;
     }
     else{
       return false;
     }
 })
-  }
+  mainMenu(person, data);
+}
+
+function findSiblings(person, people){
+  var foundPerson = people.filter(function(el){
+    if(el.parents[0] == person.parents[0] || el.parents[1]==person.parents[1]){
+      alert("Siblings: " + el.firstName + " " + el.lastName);
+      return true;
+    }
+    else{
+      return false;
+    }
+})
   mainMenu(person, data);
 }
