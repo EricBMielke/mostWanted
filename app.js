@@ -11,6 +11,7 @@ var newWeightArray = [];
 let foundEyePerson = [];
 var newEyeArray = [];
 let familyArray =[];
+let foundThreeCategoryPerson =[];
 //variables
 
 for (i = 0; i < data.length; i++) {
@@ -262,6 +263,31 @@ function searchByEyeColor(people){
   return foundEyePerson;
   }
 }
+
+function findThreeCategories(people){
+var misMatch = true;
+var personEye = promptFor("What is the person's eye color?", chars);
+var personGender = promptFor("What is the person's gender?", chars);
+var personOccupation = promptFor("What is the person's occupation?", chars)
+var foundPerson = people.filter(function(person){
+  if(person.eyeColor === personEye && person.gender === personGender && person.occupation === personOccupation ){
+    foundThreeCategoryPerson.push(person.firstName + " " + person.lastName);
+    misMatch = false; 
+    return foundThreeCategoryPerson
+  }
+})
+  if(misMatch === true){
+    alert('No results found');
+  }
+  else{
+    alert ("We found" + "\n" + foundThreeCategoryPerson.join('\n')); 
+    personEye='';
+    personGender='';
+    personOccupation='';
+    foundThreeCategoryPerson = [];
+  }
+}
+
 
 /*function fully works through start button/main menu navigation 
 courtesy of Nevin */
