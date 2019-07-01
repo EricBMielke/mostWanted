@@ -76,7 +76,7 @@ function mainMenu(person, people){
     case "siblings": 
       findSiblings(person, people);
     case "descendants":
-    // TODO: get person's descendants
+      findDescendants(person, people);
     break;
     case "restart":
       app(people); // restart
@@ -196,12 +196,11 @@ function searchByGender(people){
   // for (i = 0; i < data.length; i++){
     foundGenderPerson = people.map(function(person){
     if(person.gender === personGender){
-      //foundGenderPerson.push(person.firstName + " " + person.lastName);
+    // foundGenderPerson.push(person.firstName + " " + person.lastName);
+    console.log(foundGenderPerson);
       return person;
-      console.log(foundGenderPerson);
     }
     else{
-      console.log(" ");
     }
   })
   alert(foundGenderPerson[0].firstName);/*So this syntax kind of works, but it is not 
@@ -210,7 +209,7 @@ function searchByGender(people){
   female populating them are undefined in the new array. No clue how to fix. */
   app(data);
   // TODO: find the person using the name they entered
-   return foundGenderPerson;
+  return true;
 }
 
 function searchByHeight(people){
@@ -307,6 +306,19 @@ function findParents(person, people){
     }
 })
   mainMenu(person, data);
+}
+
+function findDescendants(person, people){
+  var foundPerson = people.filter(function(el){  
+    if(el.parents[0] == person.id || el.parents[1] == person.id){
+      alert("Descendant: " + el.firstName + " " + el.lastName);
+      findDescendants (el, people);
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
 }
 
 function findSiblings(person, people){
