@@ -12,32 +12,6 @@
   	<div>
     	<button onclick="app(data)">Start Searching</button>
     </div>
-    <div>
-    	<h3> Use the buttons below to narrow your search. </h3>
-    <div id="radioButtons">
-    	<p>Please select your search type:<br>
-    		Note: these no longer do anything useful.
-    	</p>
-  			<input type="radio" name="trait" id="age" value="age"> age<br>
-  			<input type="radio" name="trait" id="gender" value="gender">gender<br>
-  			<input type="radio" name="trait" id="height" value="height">height<br>  
-  			<input type="radio" name="trait" id="weight" value="weight">weight<br>
-  			<input type="radio" name="trait" id="eye" value="eye">eye color<br> 
-  			<input type="button" onClick="searchByTrait()" value="OK">
-  		</p>
-  	</div>
-  	<div id="checkBoxes">
-  	    <p>Please select your search criteria:<br>
-  	    	Note: these do nothing right now. 
-  	    </p>
-  			<input type="checkbox" name="checkBoxTrait" id="age" value="age"> age<br>
-  			<input type="checkbox" name="checkBoxTrait" id="gender" value="gender">gender<br>
-  			<input type="checkbox" name="checkBoxTrait" id="height" value="height">height<br>  
-  			<input type="checkbox" name="checkBoxTrait" id="weight" value="weight">weight<br>
-  			<input type="checkbox" name="checkBoxTrait" id="eyeColor" value="eyeColor">eye color<br>
-  			<input type="button" onClick="searchByTrait()" value="OK">
-  		</p>
-  	</div>
   	<div id="result">
   		<p id="theResult"></p>
 	  </div>
@@ -46,6 +20,19 @@
 			<button onclick="findThreeCategories(data)">Search by gender, eye color, and occupation</button>
 		</p>
 	  </div>
+    <p>Use the dropdown menu below to display a full list of males or females. <br>Set it to 'select' and click 'sort' to reset.</p>
+          <div id=dataDropDowns>
+        <select id="genderDropDown" name="Gender">
+          <option value="default">Select</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+        <input type="button" onClick="genderDropDown(data, dataSetElementNode, i)" value="Sort">
+      </div>
+      <div id="dataSet">
+        <ul id="dataUnorderedList">
+        </ul>
+      </div>
  	</center>
 	<script src="data.js"></script>
     <script src="app.js"></script>

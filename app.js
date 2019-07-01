@@ -381,3 +381,20 @@ function findSiblings(person, people){
 })
   mainMenu(person, data);
 }
+
+let dataSetElementNode = document.getElementById("dataSet");
+
+function genderDropDown(people, parent, i){
+  document.getElementById("dataSet").innerHTML = "";
+  let aResult = people.filter(function(el){
+    if (el.gender == document.getElementById("genderDropDown").value){
+      var node = document.createElement("li");
+      var breakNode = document.createElement("br");
+      node.setAttribute("id", "dataItem" + i);
+      var textnode = document.createTextNode(el.firstName + " " + el.lastName);
+      node.appendChild(textnode);
+      parent.appendChild(node);
+      parent.appendChild(breakNode);
+    }
+  })
+}
