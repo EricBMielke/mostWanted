@@ -10,15 +10,14 @@ let foundWeightPerson = [];
 var newWeightArray = [];
 let foundEyePerson = [];
 var newEyeArray = [];
+let familyArray =[];
 //variables
 
 for (i = 0; i < data.length; i++) {
   var dob = data[i].dob
-  // console.log("date of birth: " + " " + dob);
   let currentYear = new Date().getFullYear();
   var age;
   age = Math.abs(new Date(dob).getFullYear() - currentYear);
-  // console.log(age);
   data[i].currentAge = age;
 }
 // app is the function called to start the entire application
@@ -26,11 +25,9 @@ function app(people){
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   switch(searchType){
     case 'yes':
-    // TODO: search by name
     var foundPerson = searchByName(people);
     break;
     case 'no':
-    // TODO: search by traits
     var unfoundPerson = searchByTrait(people); //
     break;
     default:
@@ -51,15 +48,16 @@ function mainMenu(person, people){
     return app(people); // restart
   }
 
-  var displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'spouse', 'siblings', 'parents', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+  var displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'family', 'info', 'spouse', 'siblings', 'parents', or 'descendants'? Type the option you want or 'restart' or 'quit'");
 
   switch(displayOption){
     case "info":
-    // TODO: get person's info
       displayPerson(person);
     break;
+    case "family":
+        findFamily(person, people);
+    break;
     case "spouse":
-    // TODO: get person's family
       findSpouse(person, people);
     break;
     case "parents":
@@ -96,7 +94,6 @@ function searchByName(people){
     }
   })
   mainMenu(foundPerson[0],data);
-  // TODO: find the person using the name they entered
   return foundPerson;
 }
 
@@ -175,8 +172,6 @@ function searchByAge(people){
   for (i = 0; i < data.length; i++){
     var foundPerson = people.filter(function(person){
     if(person.currentAge === personAge){
-      // window.alert ("We found" + " " + person.firstName + " " + person.lastName);
-      document.getElementById('theResult').innerHTML = "We found" + " " + person.firstName + " " + person.lastName;
       console.log(foundPerson);
       return true;
     }
@@ -184,7 +179,6 @@ function searchByAge(people){
       return false;
     }
   })
-  // TODO: find the person using the name they entered
   return foundPerson;
   }
 }
@@ -225,9 +219,6 @@ function searchByHeight(people){
     }
 
   })
-  // alert ("We found" + "\n" + newHeightArray.join('\n'));
-  document.getElementById('theResult').innerHTML = newHeightArray;
-  // TODO: find the person using the name they entered
   return foundHeightPerson;
   }
 }
@@ -248,9 +239,6 @@ function searchByWeight(people){
     }
 
   })
-  // alert ("We found" + "\n" + newWeightArray.join('\n'));
-  document.getElementById('theResult').innerHTML = newWeightArray;
-  // TODO: find the person using the name they entered
   return foundWeightPerson;
   }
 }
@@ -271,8 +259,6 @@ function searchByEyeColor(people){
 
   })
   alert ("We found" + "\n" + newEyeArray.join('\n'));
-  // document.getElementById('theResult').innerHTML = newEyeArray;
-  // TODO: find the person using the name they entered
   return foundEyePerson;
   }
 }
@@ -290,6 +276,42 @@ function findSpouse(person, people){
     }
 })
   mainMenu(person, data);
+}
+
+function findFamily (person, people){
+    familyArray = [];
+    foundFamilyParents = people.filter(function(el){
+      if(el.id == person.parents[0] || el.id==person.parents[1]){
+        familyArray.push("Parents: " + el.firstName + " " + el.lastName);
+        return true;
+      }
+      else{
+        return false;
+      }
+    })
+    foundFamilySpouse = people.filter(function(el){
+      if(el.id == person.currentSpouse){
+        familyArray.push("Spouse: " + el.firstName + " " + el.lastName);
+        return true;
+      }
+      else{
+        return false;
+      }
+    })
+    foundFamilySiblings = people.filter(function(el){
+        if (el.parents.length == 0 ){
+        return false
+        }
+        else if(el.parents[0] == person.parents[0] || el.parents[1]==person.parents[1]){
+          familyArray.push("Siblings: " + el.firstName + " " + el.lastName);
+          return true;
+        }
+        else{
+          return false;
+        }
+    })
+    alert ("We found" + "\n" + familyArray.join('\n'));
+    return true;
 }
 
 function findParents(person, people){
@@ -320,7 +342,10 @@ function findDescendants(person, people){
 
 function findSiblings(person, people){
   var foundPerson = people.filter(function(el){
-    if(el.parents[0] == person.parents[0] || el.parents[1]==person.parents[1]){
+    if (el.parents.length == 0 ){
+      return false
+    }
+    else if(el.parents[0] == person.parents[0] || el.parents[1]==person.parents[1]){
       alert("Siblings: " + el.firstName + " " + el.lastName);
       return true;
     }
