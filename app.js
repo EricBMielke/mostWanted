@@ -12,14 +12,6 @@ let foundEyePerson = [];
 var newEyeArray = [];
 //variables
 
-var metricPeople = data.map(convertToMetric)
-function convertToMetric(data) {
-  data.weight = weight/2.54
-  data.height =  height/39.37
-}
-
-console.log(metricPeople);
-
 for (i = 0; i < data.length; i++) {
   var dob = data[i].dob
   // console.log("date of birth: " + " " + dob);
@@ -193,24 +185,23 @@ function searchByAge(people){
 
 function searchByGender(people){
   var personGender = promptFor("What is the person's gender?", chars);
-  // for (i = 0; i < data.length; i++){
+  for (i = 0; i < data.length; i++){
     foundGenderPerson = people.map(function(person){
     if(person.gender === personGender){
-    // foundGenderPerson.push(person.firstName + " " + person.lastName);
-    console.log(foundGenderPerson);
-      return person;
+      foundGenderPerson.push(person.firstName + " " + person.lastName);
+      newGenderArray = foundGenderPerson;
+      return newGenderArray;
     }
     else{
+      console.log("else");
     }
-  })
-  alert(foundGenderPerson[0].firstName);/*So this syntax kind of works, but it is not 
-  universally functional. Right now, it just lists Billy since he is at the 0th index.
-  However, using i or leaving the brackets empty does not work because the positions that had a
-  female populating them are undefined in the new array. No clue how to fix. */
-  app(data);
-  // TODO: find the person using the name they entered
-  return true;
+    })
+    alert ("We found" + "\n" + newGenderArray.join('\n'));
+    return foundGenderPerson;
+  }
+
 }
+
 
 function searchByHeight(people){
   var personHeight = promptFor("What is the person's height?", chars);
@@ -273,8 +264,8 @@ function searchByEyeColor(people){
     }
 
   })
-  // alert ("We found" + "\n" + newEyeArray.join('\n'));
-  document.getElementById('theResult').innerHTML = newEyeArray;
+  alert ("We found" + "\n" + newEyeArray.join('\n'));
+  // document.getElementById('theResult').innerHTML = newEyeArray;
   // TODO: find the person using the name they entered
   return foundEyePerson;
   }
