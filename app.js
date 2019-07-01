@@ -80,20 +80,22 @@ function mainMenu(person, people){
   }
 }
 
-function searchByName(people){ //make understand upper and lowercase letters (idiot proofing)
+function searchByName(people){
   var firstName = promptFor("What is the person's first name?", chars);
   var lastName = promptFor("What is the person's last name?", chars);
   var foundPerson = people.filter(function(person){
-    if(person.firstName === firstName && person.lastName === lastName){
+  //Removes case sensitivity
+  firstName = firstName.charAt(0).toUpperCase() + firstName.substr(1).toLowerCase();
+  lastName = lastName.charAt(0).toUpperCase() + lastName.substr(1).toLowerCase();
+  if(person.firstName === firstName && person.lastName === lastName){
       window.alert ("We found" + " " + person.firstName + " " + person.lastName);
-
       return true;
     }
     else{
       return false;
     }
   })
-  displayPerson(foundPerson[0]);
+  mainMenu(foundPerson[0],data);
   // TODO: find the person using the name they entered
   return foundPerson;
 }
@@ -159,6 +161,10 @@ function searchByTrait(people){
   }
   else if (selectedTrait == "eye color"){
     searchByEyeColor(data);
+  }
+  else {
+    window.alert('Invalid option');
+  app(data);
   }
 }
 
