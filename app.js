@@ -4,6 +4,8 @@ Build all of your functions for displaying and gathering information below (GUI)
 //variables 
 let foundGenderPerson = [];
 var newGenderArray = [];
+let foundAgePerson = [];
+let newAgeArray = [];
 let foundHeightPerson = [];
 var newHeightArray = [];
 let foundWeightPerson = [];
@@ -173,14 +175,15 @@ function searchByAge(people){
   for (i = 0; i < data.length; i++){
     var foundPerson = people.filter(function(person){
     if(person.currentAge === personAge){
-      console.log(foundPerson);
-      return true;
+      foundAgePerson.push(person.firstName + " " + person.lastName);
+      newAgeArray = foundAgePerson;
     }
     else{
       return false;
     }
-  })
-  return foundPerson;
+    })
+  alert ("We found" + "\n" + newAgeArray.join('\n'));
+  return newAgeArray;
   }
 }
 
@@ -194,7 +197,6 @@ function searchByGender(people){
       return newGenderArray;
     }
     else{
-      console.log("else");
     }
     })
     alert ("We found" + "\n" + newGenderArray.join('\n'));
@@ -211,15 +213,13 @@ function searchByHeight(people){
     foundHeightPerson = people.filter(function(person){
     if(person.height === personHeight){
       foundHeightPerson.push(person.firstName + " " + person.lastName);
-      console.log(foundHeightPerson);
       newHeightArray = foundHeightPerson;
       return newHeightArray;
     }
     else{
-      console.log("else");
     }
-
   })
+  alert ("We found" + "\n" + newHeightArray.join('\n'));
   return foundHeightPerson;
   }
 }
@@ -231,15 +231,13 @@ function searchByWeight(people){
     foundWeightPerson = people.filter(function(person){
     if(person.weight === personWeight){
       foundWeightPerson.push(person.firstName + " " + person.lastName);
-      console.log(foundWeightPerson);
       newWeightArray = foundWeightPerson;
       return newWeightArray;
     }
     else{
-      console.log("else");
     }
-
   })
+  alert ("We found" + "\n" + newWeightArray.join('\n'));
   return foundWeightPerson;
   }
 }
@@ -250,17 +248,20 @@ function searchByEyeColor(people){
     foundEyePerson = people.map(function(person){
     if(person.eyeColor === personEye){
       foundEyePerson.push(person.firstName + " " + person.lastName);
-      console.log(foundEyePerson);
+      eyeMatch = true;
       newEyeArray = foundEyePerson;
       return newEyeArray;
     }
     else{
-      console.log("else");
     }
-
   })
-  alert ("We found" + "\n" + newEyeArray.join('\n'));
-  return foundEyePerson;
+  }
+  if(eyeMatch === false){
+      alert('No results found');
+  }
+  else{
+    alert ("We found" + "\n" + newEyeArray.join('\n'));
+    return foundEyePerson;
   }
 }
 
